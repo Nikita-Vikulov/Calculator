@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="textSize">15sp</dimen>
+    <dimen name="layout_marginStart">8dp</dimen>
+    <dimen name="layout_width_zero">184dp</dimen>
+    <dimen name="layout_height">48dp</dimen>
+    <dimen name="layout_width">41dp</dimen>
+    <dimen name="layout_height_plus">96dp</dimen>
+    <dimen name="layout_width_textView">324dp</dimen>
+    <dimen name="layout_height_textView">53dp</dimen>
+    <dimen name="textSize_textView">40sp</dimen>
     <dimen name="button_text">15sp</dimen>
 </resources>
