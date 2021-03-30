@@ -3,7 +3,9 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,57 +17,36 @@ import com.google.android.material.radiobutton.MaterialRadioButton;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
-    String numbers = "";
-    String view = "";
-    double result = 0;
-    int sign = 0;
-
-    TextView textView;
-    Button button_1;
-    Button button_2;
-    Button button_3;
-    Button button_4;
-    Button button_5;
-    Button button_6;
-    Button button_7;
-    Button button_8;
-    Button button_9;
-    Button button_0;
-    Button button_point;
-    Button button_plus;
-    Button button_minus;
-    Button button_multiply;
-    Button button_divide;
-    Button button_percent;
-    Button button_equally;
-    Button button_reset;
+    private String numbers = "";
+    private double result = 0;
+    private Sign s = Sign.EQUALLY;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(getAppTheme(R.style.MyCoolStyle));
         setContentView(R.layout.activity_main_calculator);
-        initThemeChooser();
 
-        textView = (TextView) findViewById(R.id.textView);
-        button_1 = (Button) findViewById(R.id.button_1);
-        button_2 = (Button) findViewById(R.id.button_2);
-        button_3 = (Button) findViewById(R.id.button_3);
-        button_4 = (Button) findViewById(R.id.button_4);
-        button_5 = (Button) findViewById(R.id.button_5);
-        button_6 = (Button) findViewById(R.id.button_6);
-        button_7 = (Button) findViewById(R.id.button_7);
-        button_8 = (Button) findViewById(R.id.button_8);
-        button_9 = (Button) findViewById(R.id.button_9);
-        button_0 = (Button) findViewById(R.id.button_0);
-        button_point = (Button) findViewById(R.id.button_point);
-        button_plus = (Button) findViewById(R.id.button_plus);
-        button_minus = (Button) findViewById(R.id.button_minus);
-        button_multiply = (Button) findViewById(R.id.button_multiply);
-        button_divide = (Button) findViewById(R.id.button_divide);
-        button_percent = (Button) findViewById(R.id.button_percent);
-        button_equally = (Button) findViewById(R.id.button_equally);
-        button_reset = (Button) findViewById(R.id.button_reset);
+        textView = findViewById(R.id.textView);
+        Button button_1 = findViewById(R.id.button_1);
+        Button button_2 = findViewById(R.id.button_2);
+        Button button_3 = findViewById(R.id.button_3);
+        Button button_4 = findViewById(R.id.button_4);
+        Button button_5 = findViewById(R.id.button_5);
+        Button button_6 = findViewById(R.id.button_6);
+        Button button_7 = findViewById(R.id.button_7);
+        Button button_8 = findViewById(R.id.button_8);
+        Button button_9 = findViewById(R.id.button_9);
+        Button button_0 = findViewById(R.id.button_0);
+        Button button_point = findViewById(R.id.button_point);
+        Button button_plus = findViewById(R.id.button_plus);
+        Button button_minus = findViewById(R.id.button_minus);
+        Button button_multiply = findViewById(R.id.button_multiply);
+        Button button_divide = findViewById(R.id.button_divide);
+        Button button_percent = findViewById(R.id.button_percent);
+        Button button_equally = findViewById(R.id.button_equally);
+        Button button_reset = findViewById(R.id.button_reset);
+        Button button_setting = findViewById(R.id.button_setting);
 
         button_1.setOnClickListener(this);
         button_2.setOnClickListener(this);
@@ -85,192 +66,132 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         button_percent.setOnClickListener(this);
         button_equally.setOnClickListener(this);
         button_reset.setOnClickListener(this);
-    }
-    // Имя настроек
-    private static final String NameSharedPreference = "LOGIN";
-
-    // Имя параметра в настройках
-    private static final String appTheme = "APP_THEME";
-
-    private static final int MyCoolCodeStyle = 0;
-    private static final int AppThemeLightCodeStyle = 1;
-    private static final int AppThemeCodeStyle = 2;
-    private static final int AppThemeDarkCodeStyle = 3;
-
-    // Инициализация радиокнопок
-    private void initThemeChooser() {
-        initRadioButton(findViewById(R.id.radioButtonMyCoolStyle),
-                MyCoolCodeStyle);
-        initRadioButton(findViewById(R.id.radioButtonMaterialDark),
-                AppThemeDarkCodeStyle);
-        initRadioButton(findViewById(R.id.radioButtonMaterialLight),
-                AppThemeLightCodeStyle);
-        initRadioButton(findViewById(R.id.radioButtonMaterialLightDarkAction),
-                AppThemeCodeStyle);
-        RadioGroup rg = findViewById(R.id.radioButtons);
-        ((MaterialRadioButton)rg.getChildAt(getCodeStyle(MyCoolCodeStyle))).setChecked(true);
+        button_setting.setOnClickListener(this);
     }
 
-    // Все инициализации кнопок очень похожи, поэтому создадим метод для переиспользования
-    private void initRadioButton(View button, final int codeStyle){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setAppTheme(codeStyle);
-                recreate();
-            }
-        });
-    }
-
-    private int getAppTheme(int codeStyle) {
-        return codeStyleToStyleId(getCodeStyle(codeStyle));
-    }
-
-    // Чтение настроек, параметр «тема»
-    private int getCodeStyle(int codeStyle){
-        // Работаем через специальный класс сохранения и чтения настроек
-        SharedPreferences sharedPref = getSharedPreferences(NameSharedPreference, MODE_PRIVATE);
-        //Прочитать тему, если настройка не найдена - взять по умолчанию
-        return sharedPref.getInt(appTheme, codeStyle);
-    }
-
-    // Сохранение настроек
-    private void setAppTheme(int codeStyle) {
-        SharedPreferences sharedPref = getSharedPreferences(NameSharedPreference, MODE_PRIVATE);
-        // Настройки сохраняются посредством специального класса editor.
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(appTheme, codeStyle);
-        editor.apply();
-    }
-
-    private int codeStyleToStyleId(int codeStyle){
-        switch(codeStyle){
-            case AppThemeCodeStyle:
-                return R.style.AppTheme;
-            case AppThemeLightCodeStyle:
-                return R.style.AppThemeLight;
-            case AppThemeDarkCodeStyle:
-                return R.style.AppThemeDark;
-            default:
-                return R.style.MyCoolStyle;
-        }
+    public enum Sign {
+        PLUS,
+        MINUS,
+        MULTIPLY,
+        DIVIDE,
+        EQUALLY,
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.button_1:
                 numbers += 1;
-                view += 1;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_2:
                 numbers += 2;
-                view += 2;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_3:
                 numbers += 3;
-                view += 3;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_4:
                 numbers += 4;
-                view += 4;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_5:
                 numbers += 5;
-                view += 5;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_6:
                 numbers += 6;
-                view += 6;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_7:
                 numbers += 7;
-                view += 7;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_8:
                 numbers += 8;
-                view += 8;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_9:
                 numbers += 9;
-                view += 9;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_0:
                 numbers += 0;
-                view += 0;
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_point:
                 numbers += ".";
-                view += ".";
-                textView.setText(view);
+                textView.setText(numbers);
                 break;
             case R.id.button_plus:
-                checkSign();
+                checkSign(s);
                 numbers = "";
-                view += "+";
-                sign = 1;
-                textView.setText(view);
+                s = Sign.PLUS;
+                textView.setText("+");
                 break;
             case R.id.button_minus:
-                checkSign();
+                checkSign(s);
                 numbers = "";
-                view += "-";
-                sign = 2;
-                textView.setText(view);
+                s = Sign.MINUS;
+                textView.setText("-");
                 break;
             case R.id.button_multiply:
-                checkSign();
+                checkSign(s);
                 numbers = "";
-                view += "*";
-                sign = 3;
-                textView.setText(view);
+                s = Sign.MULTIPLY;
+                textView.setText("*");
                 break;
             case R.id.button_divide:
-                checkSign();
+                checkSign(s);
                 numbers = "";
-                view += "/";
-                sign = 4;
-                textView.setText(view);
+                s = Sign.DIVIDE;
+                textView.setText("/");
                 break;
             case R.id.button_percent:
-                checkSign();
+                checkSign(s);
                 numbers = "";
-                view += "%";
-                textView.setText(view);
+                textView.setText("%");
                 break;
             case R.id.button_equally:
-                checkSign();
+                checkSign(s);
                 numbers = String.valueOf(result);
-                view = String.valueOf(result);
-                sign = 0;
-                textView.setText(view);
+                s = Sign.EQUALLY;
+                textView.setText(numbers);
                 break;
             case R.id.button_reset:
                 result = 0;
                 numbers = "";
-                view = "";
-                sign = 0;
-                textView.setText(view);
+                s = Sign.EQUALLY;
+                textView.setText("");
+                break;
+            case R.id.button_setting:
+                Intent runSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                // Метод стартует активити, указанную в интенте
+                startActivity(runSettings);
                 break;
         }
     }
 
-    private void checkSign() {
-        if (sign == 0) result = Double.parseDouble(numbers);
-        else if (sign == 1) result += Double.parseDouble(numbers);
-        else if (sign == 2) result -= Double.parseDouble(numbers);
-        else if (sign == 3) result *= Double.parseDouble(numbers);
-        else if (sign == 4) result /= Double.parseDouble(numbers);
+    private void checkSign(Sign s) {
+        switch (s) {
+            case EQUALLY:
+                result = Double.parseDouble(numbers);
+                break;
+            case PLUS:
+                result += Double.parseDouble(numbers);
+                break;
+            case MINUS:
+                result -= Double.parseDouble(numbers);
+                break;
+            case MULTIPLY:
+                result *= Double.parseDouble(numbers);
+                break;
+            case DIVIDE:
+                result /= Double.parseDouble(numbers);
+                break;
+        }
     }
 }

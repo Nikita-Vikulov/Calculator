@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/radioButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnknownId">
+
+    </RadioGroup>
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonMyCoolStyle"
+        android:layout_width="228dp"
+        android:layout_height="46dp"
+        android:text="@string/my_cool_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonMaterialLight"
+        android:layout_width="228dp"
+        android:layout_height="46dp"
+        android:text="@string/material_light"
+        app:layout_constraintStart_toStartOf="@+id/radioButtonMyCoolStyle"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonMyCoolStyle"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonMaterialLightDarkAction"
+        android:layout_width="228dp"
+        android:layout_height="44dp"
+        android:text="@string/material_light_action_bar_dark"
+        app:layout_constraintStart_toStartOf="@+id/radioButtonMaterialLight"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonMaterialLight"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/radioButtonMaterialDark"
+        android:layout_width="228dp"
+        android:layout_height="47dp"
+        android:text="@string/material_dark"
+        app:layout_constraintStart_toStartOf="@+id/radioButtonMaterialLightDarkAction"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonMaterialLightDarkAction"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="229dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="1dp"
+        android:text="@string/button_return"
+        app:layout_constraintEnd_toEndOf="@+id/radioButtonMaterialDark"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/radioButtonMaterialDark"
+        tools:layout_editor_absoluteY="261dp"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
