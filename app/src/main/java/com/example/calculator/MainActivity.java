@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
-import com.google.android.material.radiobutton.MaterialRadioButton;
+import static com.example.calculator.SettingsActivity.AppThemeCodeStyle;
+import static com.example.calculator.SettingsActivity.AppThemeDarkCodeStyle;
+import static com.example.calculator.SettingsActivity.AppThemeLightCodeStyle;
+import static com.example.calculator.SettingsActivity.NameSharedPreference;
+import static com.example.calculator.SettingsActivity.appTheme;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(getAppTheme(R.style.MyCoolStyle));
         setContentView(R.layout.activity_main_calculator);
 
         textView = findViewById(R.id.textView);
@@ -69,6 +72,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         button_setting.setOnClickListener(this);
     }
 
+    private int getAppTheme(int codeStyle) {
+        return codeStyleToStyleId(getCodeStyle(codeStyle));
+    }
+
+    // Чтение настроек, параметр «тема»
+    private int getCodeStyle(int codeStyle) {
+        // Работаем через специальный класс сохранения и чтения настроек
+        SharedPreferences sharedPref = getSharedPreferences(NameSharedPreference, MODE_PRIVATE);
+        //Прочитать тему, если настройка не найдена - взять по умолчанию
+        return sharedPref.getInt(appTheme, codeStyle);
+    }
+
+    private int codeStyleToStyleId(int codeStyle) {
+        switch (codeStyle) {
+            case AppThemeCodeStyle:
+                return R.style.AppTheme;
+            case AppThemeLightCodeStyle:
+                return R.style.AppThemeLight;
+            case AppThemeDarkCodeStyle:
+                return R.style.AppThemeDark;
+            default:
+                return R.style.MyCoolStyle;
+        }
+    }
+
     public enum Sign {
         PLUS,
         MINUS,
@@ -80,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.button_1:
                 numbers += 1;
@@ -151,9 +178,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 textView.setText("/");
                 break;
             case R.id.button_percent:
-                checkSign(s);
                 numbers = "";
-                textView.setText("%");
+                textView.setText("");
                 break;
             case R.id.button_equally:
                 checkSign(s);
@@ -171,6 +197,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 Intent runSettings = new Intent(MainActivity.this, SettingsActivity.class);
                 // Метод стартует активити, указанную в интенте
                 startActivity(runSettings);
+                break;
+            default:
+                result = 0;
+                numbers = "";
+                textView.setText("");
                 break;
         }
     }

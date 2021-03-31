@@ -1,17 +1,13 @@
 package com.example.calculator;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceFragmentCompat;
-
-import com.google.android.material.radiobutton.MaterialRadioButton;
-
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
@@ -21,12 +17,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_activity);
         initThemeChooser();
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.settings, new SettingsFragment())
-                    .commit();
-        }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -36,6 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent runSettings = new Intent(SettingsActivity.this, MainActivity.class);
+                // Метод стартует активити, указанную в интенте
+                startActivity(runSettings);
                 // Метод finish() завершает активити
                 finish();
             }
@@ -43,15 +36,15 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     // Имя настроек
-    private static final String NameSharedPreference = "LOGIN";
+    public static final String NameSharedPreference = "LOGIN";
 
     // Имя параметра в настройках
-    private static final String appTheme = "APP_THEME";
+    public static final String appTheme = "APP_THEME";
 
-    private static final int MyCoolCodeStyle = 0;
-    private static final int AppThemeLightCodeStyle = 1;
-    private static final int AppThemeCodeStyle = 2;
-    private static final int AppThemeDarkCodeStyle = 3;
+    public static final int MyCoolCodeStyle = 0;
+    public static final int AppThemeLightCodeStyle = 1;
+    public static final int AppThemeCodeStyle = 2;
+    public static final int AppThemeDarkCodeStyle = 3;
 
     // Инициализация радиокнопок
     private void initThemeChooser() {
@@ -64,7 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
         initRadioButton(findViewById(R.id.radioButtonMaterialLightDarkAction),
                 AppThemeCodeStyle);
         RadioGroup rg = findViewById(R.id.radioButtons);
-        ((MaterialRadioButton) rg.getChildAt(getCodeStyle(MyCoolCodeStyle))).setChecked(true);
+      //  ((MaterialRadioButton) rg.getChildAt(getCodeStyle(MyCoolCodeStyle))).setChecked(true);
     }
 
     // Все инициализации кнопок очень похожи, поэтому создадим метод для переиспользования
@@ -112,10 +105,4 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        }
-    }
 }
