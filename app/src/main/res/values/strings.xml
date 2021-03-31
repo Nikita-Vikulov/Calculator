@@ -1,21 +1,44 @@
 <resources>
     <string name="app_name">Calculator</string>
-    <string name="_1">1</string>
-    <string name="_2">2</string>
-    <string name="_3">3</string>
-    <string name="_4">4</string>
-    <string name="_5">5</string>
-    <string name="_6">6</string>
-    <string name="_7">7</string>
-    <string name="_8">8</string>
-    <string name="_9">9</string>
-    <string name="_0">0</string>
-    <string name="_point">.</string>
-    <string name="_plus">+</string>
-    <string name="_minus">-</string>
-    <string name="_equally">=</string>
-    <string name="_reset">C</string>
-    <string name="_percent">%</string>
-    <string name="_multiply">*</string>
-    <string name="_divide">/</string>
+    <string name="button_1">1</string>
+    <string name="button_2">2</string>
+    <string name="button_3">3</string>
+    <string name="button_4">4</string>
+    <string name="button_5">5</string>
+    <string name="button_6">6</string>
+    <string name="button_7">7</string>
+    <string name="button_8">8</string>
+    <string name="button_9">9</string>
+    <string name="button_0">0</string>
+    <string name="button_point">.</string>
+    <string name="button_plus">+</string>
+    <string name="button_minus">-</string>
+    <string name="button_equally">=</string>
+    <string name="button_reset">C</string>
+    <string name="button_percent">%</string>
+    <string name="button_multiply">*</string>
+    <string name="button_divide">/</string>
+    <string name="textView"> </string>
+    <string name="my_cool_style">My cool style</string>
+    <string name="material_light">Material light</string>
+    <string name="material_light_action_bar_dark">Material light action bar dark</string>
+    <string name="material_dark">Material dark</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="button_return">Return</string>
+    <string name="button_setting">Setting</string>
 </resources>
